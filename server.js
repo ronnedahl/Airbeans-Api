@@ -1,3 +1,23 @@
+ 3-som-anvndare-vill-jag-kunna-lsa-mer-om-fretaget-och-dess-kaffe-s-jag-fr-frstelse-fr-hur-det-produceras-och-kan-gra-ett-informerat-val
+import express from 'express'
+import cors from 'cors'
+import aboutRouter from './routes/about.js'
+
+const app = express()
+const PORT = 8000
+
+//Middlewares
+app.use(express.json())
+app.use(cors())
+
+//Routes
+app.use('/api/about', aboutRouter)
+
+app.listen(PORT, (req,res)=>{
+console.log(`server is running on port ${PORT}`)
+
+})
+
 import express from 'express';
 
 // Start the server
@@ -75,3 +95,4 @@ const menu = [
       "price":39
     }
   ]
+DEV
