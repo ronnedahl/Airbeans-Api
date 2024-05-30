@@ -24,6 +24,13 @@ app.post('/menu', (req, res) => {
     }
 });
 
+// Remove menu item
+app.delete('/menu/:id', (req, res) => {
+  const id = req.params.id;
+  const deleteMenuItem = menu.splice(id, 1);
+  res.status(200).json(deleteMenuItem)
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
