@@ -32,4 +32,28 @@ if(user){
 
 })
 
+// Login
+
+router.post('/login', (req, res) => {
+    const { error } = userSchema.validate(req.body);
+    if (error) {
+        const response = {
+            success: false,
+            message: error.details[0].message,
+            status: 400
+        };
+        return res.status(400).json(response);
+    }
+
+    const user = users.find(u => u.username === req.body.username);
+    if (!user) {
+        return res.status(400).json({ message: 'User does not exist' });
+    } else if (user.password !== req.body.password) {
+        return res.status(400).json({ error: 'Invalid password' }); 
+    } else {
+        return res.json({ message: "User logged in successfully", data: user });
+    }
+});
+
+
 export default router
