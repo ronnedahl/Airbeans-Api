@@ -4,3 +4,5 @@ const users = [
     { id: 3, username: 'guest', password: 'guest'},
     { id: 4, username: 'testing', password: 'testing'}
 ];
+
+export {users}
