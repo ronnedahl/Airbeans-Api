@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(cors())
 
 //Routes
-app.use('/api/about', aboutRouter)
+app.use('/about', aboutRouter)
 app.use('/auth', authRouter)
 
 
