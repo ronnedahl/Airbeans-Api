@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import aboutRouter from './routes/about.js'
+import authRouter from './routes/auth.js'
 
 
 // Start the server
@@ -12,7 +13,8 @@ app.use(express.json())
 app.use(cors())
 
 //Routes
-app.use('/api/about', aboutRouter)
+app.use('/about', aboutRouter)
+app.use('/auth', authRouter)
 
 
 // Get request for all menu items

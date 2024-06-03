@@ -6,23 +6,23 @@ const router = Router()
 
 //  REGISTER A NEW USER
 router.post('/register',(req,res)=>{
-const error = userSchema.validate(req.body)
+const {error} = userSchema.validate(req.body)
 if(error){
     const response = {
         success : false,
-        message : error.details[0].message,
+        message: error.details[0].message,
         status: 400
     }
-    return res.status(400),json(response)
+    return res.status(400).json(response)
 }
 const {username , password} = req.body
 const user = users.find(user => user.username === username)
 if(user){
-    req.status(400).json({
-        message: `user ${username} already exists`})
+    res.status(400).json({
+        message: 'user already exists'})
     }else{
         users.push({
-        id: users[users.length -1] +1,
+        id: users[users.length -1].id +1,
         username : username,
         password: password
         
@@ -31,3 +31,5 @@ if(user){
     }
 
 })
+
+export default router
