@@ -1,6 +1,6 @@
 import nedb from 'nedb-promises'
 
-const database = nedb({filename: 'about.db', autoload: true})
+const database = new nedb({filename: 'about.db', autoload: true})
 
 const about = [
     {
@@ -12,3 +12,18 @@ const about = [
    }
 
 ]
+
+// THE ABOUT US IS SHOWN TO THE USER
+// database.insert(about)
+async function showAbout() {
+
+   try {
+       const about = await database.find({})
+       return about
+   } catch (error) {
+       console.error(error)
+   }
+
+}
+
+export { showAbout }

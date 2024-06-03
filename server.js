@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import aboutRouter from './routes/about.js'
 
+
 // Start the server
 const app = express();
 const PORT = 8000;
@@ -12,6 +13,7 @@ app.use(cors())
 
 //Routes
 app.use('/api/about', aboutRouter)
+
 
 // Get request for all menu items
 app.get('/menu', (req, res) => { 
