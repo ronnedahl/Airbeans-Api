@@ -9,17 +9,17 @@ const router = Router()
 
 //  REGISTER A NEW USER
 router.post('/register',validate,async (req,res)=>{
-const user = await findUser(req.body.usermane)
+    const user = await findUser(req.body.usermane)
 
-if(user) {
-    return res.status(400).json({error: 'sorry user already exists'})
-}
-const newUser = await createUser(req.body)
-const response= {
-     success : true,
-     status : 201,
-     message : 'user created successfully',
-     data: newUser
+    if(user) {
+        return res.status(400).json({error: 'sorry user already exists'})
+    }
+    const newUser = await createUser(req.body)
+    const response= {
+        success : true,
+        status : 201,
+        message : 'user created successfully',
+        data: newUser
     }
     res.json(response)
 })
@@ -47,5 +47,8 @@ router.post('/login', (req, res) => {
     }
 });
 
+router.post('/orders/:id', (req,res) => {
+
+})
 
 export default router
