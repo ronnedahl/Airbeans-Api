@@ -12,7 +12,7 @@ const about = [
    }
 
 ]
-
+console.log(about)
 // THE ABOUT US IS SHOWN TO THE USER
 // database.insert(about)
 async function showAbout() {
