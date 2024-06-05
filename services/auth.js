@@ -14,4 +14,9 @@ const database = new nedb({filename: 'register.db', autoload: true})
     return user
  }
 
-export { createUser, findUser }
+ const findUserById = async (userId) =>{
+  const user = await database.findOne({_id : userId})
+  return user
+}
+
+export { createUser, findUser, findUserById }

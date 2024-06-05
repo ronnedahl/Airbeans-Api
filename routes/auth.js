@@ -1,7 +1,9 @@
 import { Router } from 'express'
 import { users } from  '../config/data.js'
 import userSchema from '../models/userModel.js'
-import { createUser ,findUser } from '../services/auth.js'
+import orderSchema from '../models/orderModel.js';
+import { createUser ,findUser, findUserById } from '../services/auth.js'
+import { createOrder, findOrdersByUserId } from '../services/orderService.js';
 import validate from '../middlewares/validate.js'
 
 
@@ -24,31 +26,54 @@ router.post('/register',validate,async (req,res)=>{
     res.json(response)
 })
 
-// Login
-
-router.post('/login', (req, res) => {
-    const { error } = userSchema.validate(req.body);
-    if (error) {
-        const response = {
-            success: false,
-            message: error.details[0].message,
-            status: 400
-        };
-        return res.status(400).json(response);
-    }
-
-    const user = users.find(u => u.username === req.body.username);
-    if (!user) {
-        return res.status(400).json({ message: 'User does not exist' });
-    } else if (user.password !== req.body.password) {
+// LOGIN
+router.post('/login', validate, async (req, res) => {
+    const user = await findUser(req.body.username);
+    if(!user) {
+        return res.status(400).json({ error: 'User does not exist' }); 
+    } else if(user.password !== req.body.password) {
         return res.status(400).json({ error: 'Invalid password' }); 
-    } else {
-        return res.json({ message: "User logged in successfully", data: user });
     }
+
+    global.user = user;
+    const response = {
+        success : true,
+        status : 200,
+        message : 'User logged in successfully',
+        data : user
+    }
+
+    res.json(response);
 });
 
-router.post('/orders/:id', (req,res) => {
+// CREATE ORDER AND LINK TO USER
+router.post('/orders/:userId', async (req, res) => {
+    const { userId } = req.params;
+    const user = await findUserById(userId);
 
-})
+    if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+    }
+
+    // const { error } = orderSchema.validate({ userId, ...req.body });
+    // if (error) {
+    //     return res.status(400).json({ error: error.details[0].message });
+    // }
+
+    try {
+        const newOrder = await createOrder({ userId, ...req.body });
+        const orders = await findOrdersByUserId(userId);
+
+        res.json({
+            message: 'Order created successfully',
+            data: {
+                user: userId,
+                orders: orders
+            }
+        });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to create order' });
+    }
+});
 
 export default router
