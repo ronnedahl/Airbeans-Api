@@ -8,7 +8,7 @@ import menuRouter from './routes/menu.js'
 
 // Start the server
 const app = express();
-const PORT = 8000;
+const PORT = 8070;
 global.user = null
 
 //Middlewares

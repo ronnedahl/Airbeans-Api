@@ -26,6 +26,7 @@ router.post('/register', validate, async (req, res) => {
     }
     res.json(response)
 })
+
 // LOGIN
 router.post('/login', validate, async (req, res) => {
    
