@@ -1,7 +1,7 @@
 import nedb from 'nedb-promises';
 
 // Initialize the NeDB datastore
-const db = nedb.create({ filename: 'orders.db', autoload: true });
+const db = nedb.create({ filename: 'ordersLoggedIn.db', autoload: true });
 
 // Create a new order
 export const createOrder = async (orderData) => {

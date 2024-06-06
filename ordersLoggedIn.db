@@ -1,3 +1,3 @@
 {"_id":"a1b2c3d4e5","userId":"9PlU3TjCysNVbRRw","items":[{"id":1,"title":"Bryggkaffe","desc":"Bryggd på månadens bönor.","price":39,"quantity":2},{"id":4,"title":"Latte Macchiato","desc":"Bryggd på månadens bönor.","price":49,"quantity":1}]}
-{"_id":"f6g7h8i9j0","userId":"7XyZ1WvU2KlMnOpQ","items":[{"id":3,"title":"Cappuccino","desc":"Bryggd på månadens bönor.","price":49,"quantity":1}]}
 {"userId":"7ieuXrVwlLxweom5","createdAt":{"$$date":1717588295302},"_id":"dBgwfG5TzDbKcgPs"}
+{"_id":"f6g7h8i9j0","userId":"7XyZ1WvU2KlMnOpQ","items":[{"id":3,"title":"Cappuccino","desc":"Bryggd på månadens bönor.","price":49,"quantity":1}]}
