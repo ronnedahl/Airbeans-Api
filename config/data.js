@@ -5,4 +5,6 @@ const users = [
     { id: 4, username: 'testing', password: 'testing'}
 ];
 
-export {users}
+const cart = []
+
+export {users,cart}
