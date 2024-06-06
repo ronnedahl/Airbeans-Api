@@ -10,7 +10,9 @@ const database = new nedb({filename: 'register.db', autoload: true})
  }
 
  const findUser = async (username) =>{
-    const user = await database.findOne({username : username})
+    console.log(username)
+  const user = await database.findOne({username : username})
+    console.log(user)
     return user
  }
 
