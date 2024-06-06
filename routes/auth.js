@@ -1,35 +1,58 @@
 import { Router } from 'express'
-import { users } from  '../config/data.js'
+import { users } from '../config/data.js'
 import userSchema from '../models/userModel.js'
+import { createUser, findUser } from '../services/auth.js'
+import validate from '../middlewares/validate.js'
+
 
 const router = Router()
 
 //  REGISTER A NEW USER
-router.post('/register',(req,res)=>{
-const {error} = userSchema.validate(req.body)
-if(error){
+router.post('/register', validate, async (req, res) => {
+    const user = await findUser(req.body.username)
+
+    if (user) {
+        return res.status(400).json({ error: 'sorry user already exists' })
+    }
+    const newUser = await createUser(req.body)
     const response = {
-        success : false,
-        message: error.details[0].message,
-        status: 400
+        success: true,
+        status: 201,
+        message: 'user created successfully',
+        data: newUser
     }
-    return res.status(400).json(response)
-}
-const {username , password} = req.body
-const user = users.find(user => user.username === username)
-if(user){
-    res.status(400).json({
-        message: 'user already exists'})
-    }else{
-        users.push({
-        id: users[users.length -1].id +1,
-        username : username,
-        password: password
-        
-        })
-        res.json({messge: "user was successfully added!"})
+    res.json(response)
+})
+// LOGIN
+router.post('/login', validate, async (req, res) => {
+    const user = await findUser(req.body.username)
+    if (!user) {
+        return res.status(400).json({ error: 'Sorry user dont exists' })
+    } else if (user.password !== req.body.password) {
+
+        return res.status(400).json({ error: 'The password is incorrect' })
     }
+    
+    global.user = user
+    const response = {
+        success: true,
+        status: 200,
+        message: 'user was loged in successfully',
+        data: user
+    }
+    res.json(response)
 
 })
 
+router.post('/logout', (req,res) => {
+
+    global.user = false
+    const response = {
+        success : true,
+        status : 200,
+        message : "User logged out successfully"
+    }
+    res.json(response)
+    console.log(global.user)
+})
 export default router

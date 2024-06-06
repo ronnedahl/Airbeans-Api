@@ -2,19 +2,21 @@ import express from 'express'
 import cors from 'cors'
 import aboutRouter from './routes/about.js'
 import authRouter from './routes/auth.js'
-
+import orderRouter from './routes/order.js'
 
 // Start the server
 const app = express();
 const PORT = 8000;
-
+global.user = null
 //Middlewares
+
 app.use(express.json())
 app.use(cors())
 
 //Routes
 app.use('/about', aboutRouter)
 app.use('/auth', authRouter)
+app.use('/order', orderRouter)
 
 
 // Get request for all menu items
