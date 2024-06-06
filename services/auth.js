@@ -1,16 +1,22 @@
 import nedb from 'nedb-promises'
+import { nanoid } from 'nanoid'
+import {users} from '../config/data.js'
+
 
 const database = new nedb({filename: 'register.db', autoload: true})
 
 // Add new user
  async function createUser(user){
-
-   const newUser = await database.insert(user)
-   return newUser
+  const newUserId = nanoid(5)
+  const newUser = {...user, userId: newUserId}
+   const newInsertedUser = await database.insert(newUser)
+   return newInsertedUser
  }
 
  const findUser = async (username) =>{
-    const user = await database.findOne({username : username})
+    console.log(username)
+  const user = await database.findOne({username : username})
+    console.log(user)
     return user
  }
 
