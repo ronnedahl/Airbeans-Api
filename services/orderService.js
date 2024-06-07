@@ -1,6 +1,6 @@
-import nedb from 'nedb-promises';
+import Datastore from 'nedb-promises';
 
-const database = new nedb({ filename: 'order.db', autoload: true });
+const database = Datastore.create({ path: 'order.db', autoload: true });
 
 export async function findOrdersByUserId(userId) {
     return await database.find({ userId }, { coffeeId: 0 });

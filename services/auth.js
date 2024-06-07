@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid'
 import {users} from '../config/data.js'
 
 
-const database = new nedb({filename: 'register.db', autoload: true})
+const database = new nedb({path: 'register.db', autoload: true})
 
 // Add new user
  async function createUser(user){
